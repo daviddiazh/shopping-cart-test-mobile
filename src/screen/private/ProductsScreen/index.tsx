@@ -23,7 +23,7 @@ export const ProductsScreen = () => {
   };
 
   useEffect(() => {
-    fetch().then(d => d);
+    fetch();
   }, []);
 
   const selectArticle = (product: IProduct) => {

@@ -6,7 +6,6 @@ export const useSocket = ( apiUrl = '' ) => {
     const [ online, setOnline ] = useState(false);
 
     const sockectConnect = useCallback(() => {
-
         const socketTemp = io(apiUrl, {
             transports: ['websocket'],
             autoConnect: true,

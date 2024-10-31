@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 export const API = {
-  // baseUrl: 'http://localhost:9000',
-  baseUrl: 'https://shopping-cart-test-backend.vercel.app',
+  baseUrl: 'http://localhost:9000',
+  // baseUrl: 'https://shopping-cart-test-backend.vercel.app',
 };
 
 const api = axios.create({

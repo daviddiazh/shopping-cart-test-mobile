@@ -13,7 +13,7 @@ export const SocketContext = createContext({} as SocketContextProps);
 
 export const SocketProvider: React.FC<any> = ({ children }) => {
 
-    const { socket, online, sockectConnect, sockectDisconnect } = useSocket(API.baseUrl); //TODO
+    const { socket, online, sockectConnect, sockectDisconnect } = useSocket(API.baseUrl);
 
     const { status } = useContext(AuthContext);
 
