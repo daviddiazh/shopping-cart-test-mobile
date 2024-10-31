@@ -1,7 +1,5 @@
 import axios from 'axios';
 
-console.log('process.env.BACKEND_URL', process.env.BACKEND_URL);
-
 export const API = {
   baseUrl: process.env.BACKEND_URL,
 };

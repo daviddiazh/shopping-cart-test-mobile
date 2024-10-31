@@ -7,10 +7,14 @@ import { styles } from './styles';
 import { IProduct } from '../../../interfaces/products';
 import { Icon } from '../../../components/Icon';
 import { Header } from '../../../components/Header';
+import { useSocketProvider } from '../../../context/sockets/SocketsProvider';
+import { useNavigation } from '@react-navigation/native';
 
 export const ProductsScreen = () => {
 
   const { fakeApiGet } = useAxios();
+  const { socket } = useSocketProvider();
+  const navigate: any = useNavigation();
   const [ products, setProducts ] = useState([]);
 
   const fetch = async () => {
@@ -21,6 +25,11 @@ export const ProductsScreen = () => {
   useEffect(() => {
     fetch().then(d => d);
   }, []);
+
+  const selectArticle = (product: IProduct) => {
+    socket.emit('create-order', product);
+    navigate.navigate('OrdersScreen');
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -35,12 +44,19 @@ export const ProductsScreen = () => {
                             <View style={{ width: '70%' }}>
                                 <View style={{ flex: 1 }}>
                                     <Text style={styles.productName}>{ product?.title}</Text>
-                                    <Text style={styles.productDescription}>{ product?.title}</Text>
+                                    <Text
+                                        style={styles.productDescription}
+                                    >
+                                        { product?.description?.length > 100
+                                            ? product?.description?.substring(0, 100)
+                                            : product?.description
+                                        }
+                                    </Text>
                                 </View>
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                                     <Text style={styles.price}>$ { product?.price }</Text>
-                                    <TouchableOpacity activeOpacity={0.5}>
-                                        <Icon name='shopping-bag-03' size={13} />
+                                    <TouchableOpacity activeOpacity={0.5} onPress={() => selectArticle(product)}>
+                                        <Icon name="shopping-bag-03" size={13} />
                                     </TouchableOpacity>
                                 </View>
                             </View>

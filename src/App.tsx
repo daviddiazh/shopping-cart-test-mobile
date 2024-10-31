@@ -14,11 +14,14 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import { Navigation } from './navigation/Navigation';
 import { COLORS } from './theme';
 import { AuthProvider } from './context/auth/AuthProvider';
+import { SocketProvider } from './context/sockets/SocketsProvider';
 
 const AppState: FC<{ children: ReactNode }> = ({ children }) => {
   return (
     <AuthProvider>
-      { children }
+      <SocketProvider>
+        { children }
+      </SocketProvider>
     </AuthProvider>
   );
 }
