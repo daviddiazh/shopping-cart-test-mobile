@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect } from 'react';
 import { useSocket } from '../../hooks/useSockets';
 import { AuthContext } from '../auth/AuthContext';
 import { Socket } from 'socket.io-client';
+import { API } from '../../api';
 
 interface SocketContextProps {
     socket: Socket;
@@ -12,7 +13,7 @@ export const SocketContext = createContext({} as SocketContextProps);
 
 export const SocketProvider: React.FC<any> = ({ children }) => {
 
-    const { socket, online, sockectConnect, sockectDisconnect } = useSocket('http://localhost:9000'); //TODO
+    const { socket, online, sockectConnect, sockectDisconnect } = useSocket(API.baseUrl); //TODO
 
     const { status } = useContext(AuthContext);
 

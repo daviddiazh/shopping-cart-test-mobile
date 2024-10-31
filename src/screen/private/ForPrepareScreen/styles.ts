@@ -6,6 +6,7 @@ export const styles = StyleSheet.create({
     container: {
         backgroundColor: COLORS.gray,
         flex: 1,
+        height: '100%',
     },
     title: {
         fontSize: SPACING[20],
@@ -17,7 +18,7 @@ export const styles = StyleSheet.create({
     cards: {
         flexDirection: 'column',
         paddingHorizontal: SPACING[8],
-        gap: SPACING[12],
+        gap: SPACING[12]
     },
     card: {
         backgroundColor: COLORS.light,
