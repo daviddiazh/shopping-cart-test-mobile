@@ -6,6 +6,7 @@ import { useAxios } from '../../../hooks/useAxios';
 import { styles } from './styles';
 import { IProduct } from '../../../interfaces/products';
 import { Icon } from '../../../components/Icon';
+import { Header } from '../../../components/Header';
 
 export const ProductsScreen = () => {
 
@@ -24,6 +25,7 @@ export const ProductsScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
         <ScrollView>
+            <Header />
             <Text style={styles.title}>Productos</Text>
             <View style={styles.cards}>
                 {

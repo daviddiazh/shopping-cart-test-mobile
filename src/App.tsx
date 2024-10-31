@@ -9,20 +9,31 @@
 import 'react-native-gesture-handler';
 
 import { NavigationContainer } from '@react-navigation/native';
-import React from 'react';
+import React, { FC, ReactNode } from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import { Navigation } from './navigation/Navigation';
 import { COLORS } from './theme';
+import { AuthProvider } from './context/auth/AuthProvider';
+
+const AppState: FC<{ children: ReactNode }> = ({ children }) => {
+  return (
+    <AuthProvider>
+      { children }
+    </AuthProvider>
+  );
+}
 
 function App(): React.JSX.Element {
 
   return (
-    <NavigationContainer>
-      <SafeAreaView />
-      <SafeAreaView style={{flex: 1, backgroundColor: COLORS.gray}}>
-        <Navigation />
-      </SafeAreaView>
-    </NavigationContainer>
+    <AppState>
+      <NavigationContainer>
+        <SafeAreaView />
+        <SafeAreaView style={{flex: 1, backgroundColor: COLORS.gray}}>
+          <Navigation />
+        </SafeAreaView>
+      </NavigationContainer>
+    </AppState>
   );
 }
 

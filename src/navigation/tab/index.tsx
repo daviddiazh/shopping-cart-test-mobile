@@ -8,7 +8,9 @@ import { Icon } from '../../components/Icon';
 import { COLORS } from '../../theme';
 import { ProductsScreen } from '../../screen/private/ProductsScreen';
 import { MyOrders } from '../../screen/private/MyOrders';
-import { ShoppingCart } from '../../screen/private/ShoppingCart';
+import { useAuth } from '../../context/auth/AuthProvider';
+import { ForPrepareScreen } from '../../screen/private/ForPrepareScreen';
+import { ForDeliveryScreen } from '../../screen/private/ForDeliveryScreen';
 
 const NavigationTab = createBottomTabNavigator();
 
@@ -24,50 +26,78 @@ const IconTabBar: React.FC<any> = ({focused, iconName}) => (
 
 export const NavigationTabStack: React.FC = () => {
 
-    return (
-      <NavigationTab.Navigator
-        id="NavigationTabStack"
-        initialRouteName="ProductsScreen"
-        screenOptions={{
-          headerShown: false,
-          tabBarLabelStyle: styles.tabBarLabelStyles,
-          tabBarInactiveTintColor: COLORS.dark,
-          tabBarActiveTintColor: COLORS.primary.default,
-          tabBarItemStyle: {borderTopWidth: 0},
-        }}
-        sceneContainerStyle={{backgroundColor: '#fff'}}>
-        <NavigationTab.Screen
-          name="ProductsScreen"
-          options={{
-            tabBarLabel: 'Inicio',
-            tabBarIcon: (tabBarProps: any) => (
-              <IconTabBar {...tabBarProps} iconName="casa-04" />
-            ),
-          }}
-          component={ProductsScreen}
-        />
+  const { role } = useAuth();
 
-        <NavigationTab.Screen
-          name="OrdersScreen"
-          options={{
-            tabBarLabel: 'Ordenes',
-            tabBarIcon: (tabBarProps: any) => (
-              <IconTabBar {...tabBarProps} iconName="file-06" />
-            ),
-          }}
-          component={MyOrders}
-        />
+  return (
+    <NavigationTab.Navigator
+      id="NavigationTabStack"
+      initialRouteName="ProductsScreen"
+      screenOptions={{
+        headerShown: false,
+        tabBarLabelStyle: styles.tabBarLabelStyles,
+        tabBarInactiveTintColor: COLORS.dark,
+        tabBarActiveTintColor: COLORS.primary.default,
+        tabBarItemStyle: {borderTopWidth: 0},
+      }}
+      sceneContainerStyle={{backgroundColor: '#fff'}}>
+      {
+        role === 'user' && (
+          <>
+            <NavigationTab.Screen
+              name="ProductsScreen"
+              options={{
+                tabBarLabel: 'Inicio',
+                tabBarIcon: (tabBarProps: any) => (
+                  <IconTabBar {...tabBarProps} iconName="casa-04" />
+                ),
+              }}
+              component={ProductsScreen}
+            />
 
-        <NavigationTab.Screen
-          name="CartScreen"
-          options={{
-            tabBarLabel: 'Carrito',
-            tabBarIcon: (tabBarProps: any) => (
-              <IconTabBar {...tabBarProps} iconName="shopping-bag-03" />
-            ),
-          }}
-          component={ShoppingCart}
-        />
-      </NavigationTab.Navigator>
-    );
+            <NavigationTab.Screen
+              name="OrdersScreen"
+              options={{
+                tabBarLabel: 'Ordenes',
+                tabBarIcon: (tabBarProps: any) => (
+                  <IconTabBar {...tabBarProps} iconName="shopping-bag-03" />
+                ),
+              }}
+              component={MyOrders}
+            />
+          </>
+        )
+      }
+
+      {
+        role === 'business' && (
+          <NavigationTab.Screen
+            name="ForPrepareScreen"
+            options={{
+              tabBarLabel: 'Por Preparar',
+              tabBarIcon: (tabBarProps: any) => (
+                <IconTabBar {...tabBarProps} iconName="archivo" />
+              ),
+            }}
+            component={ForPrepareScreen}
+          />
+        )
+      }
+
+      {
+        role === 'delivery' && (
+          <NavigationTab.Screen
+            name="ForDeliveryScreen"
+            options={{
+              tabBarLabel: 'Por Entregar',
+              tabBarIcon: (tabBarProps: any) => (
+                <IconTabBar {...tabBarProps} iconName="corazon-mano" />
+              ),
+            }}
+            component={ForDeliveryScreen}
+          />
+        )
+      }
+      
+    </NavigationTab.Navigator>
+  );
 };

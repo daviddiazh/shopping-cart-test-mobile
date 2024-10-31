@@ -2,10 +2,10 @@ import React from 'react';
 import { Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-export const ShoppingCart = () => {
+export const ForDeliveryScreen = () => {
   return (
     <SafeAreaView>
-        <Text>MyOrders</Text>
+        <Text>ForDeliveryScreen</Text>
     </SafeAreaView>
   );
 };
